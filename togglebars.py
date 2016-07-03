@@ -28,8 +28,8 @@ class ToggleBars(geany.Plugin):
         self.statusbar = resolve_widget(geany.main_widgets.window,
                                         (0, -1, 0), gtk.Statusbar)
         self.currently_hidden = False
-        self.key_group = self.set_key_group("togglebars", 1)
-        self.key_group.add_key_item("toggle", "Toggle menu and status bars",
+        self.key_group = self.set_key_group('togglebars', 1)
+        self.key_group.add_key_item('toggle', 'Toggle menu and status bars',
                                     self.on_keybinding)
         self.toggle()       # Hide initially
 
