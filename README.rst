@@ -18,9 +18,18 @@ This plugin does that.
 Installation
 ------------
 
+**Caution.** When enabled, this plugin removes your Geany menu bar,
+which might confuse you and prevent you from disabling it.
+If you're lost, start Geany with the ``--no-plugins`` option,
+or simply uninstall the plugin code.
+
 #. Install Geany 1.27.
    The plugin relies on undocumented internals
    and may not work with newer versions.
+
+#. Make sure that "Show status bar"
+   (Geany preferences → Interface → Miscellaneous)
+   is **enabled**.
 
 #. Install `GeanyPy`__.
    On Debian/Ubuntu, install ``geany-plugin-py``
