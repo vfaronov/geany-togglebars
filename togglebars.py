@@ -16,7 +16,7 @@ def resolve_widget(top, indices, expected_cls):
 class ToggleBars(geany.Plugin):
 
     __plugin_name__ = 'Toggle Bars'
-    __plugin_version__ = '0.2.1'
+    __plugin_version__ = '0.3.0.dev1'
     __plugin_description__ = \
         'Show/hide the Geany menu and status bars with a keystroke'
     __plugin_author__ = 'Vasiliy Faronov <vfaronov@gmail.com>'
