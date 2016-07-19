@@ -29,6 +29,11 @@ class ToggleBars(geany.Plugin):
                                         (0, -1, 0), gtk.Statusbar)
         self.currently_visible = None
         self.toggle(False)       # Hide initially
+
+        self.progressbar = geany.main_widgets.progressbar
+        self.handler1 = self.progressbar.connect('show', self.on_progress_show)
+        self.handler2 = self.progressbar.connect('hide', self.on_progress_hide)
+
         self.key_group = self.set_key_group('togglebars', 1)
         self.key_group.add_key_item('toggle', 'Toggle menu and status bars',
                                     self.on_keybinding)
@@ -47,5 +52,15 @@ class ToggleBars(geany.Plugin):
                     widget.hide()
         self.currently_visible = show
 
+    def on_progress_show(self, *_args):
+        if not self.currently_visible and self.statusbar is not None:
+            self.statusbar.show()
+
+    def on_progress_hide(self, *_args):
+        if not self.currently_visible and self.statusbar is not None:
+            self.statusbar.hide()
+
     def cleanup(self):
         self.toggle(True)       # Show everything
+        self.progressbar.disconnect(self.handler1)
+        self.progressbar.disconnect(self.handler2)

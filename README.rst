@@ -14,6 +14,10 @@ or browse the menu.
 So I want to toggle their visibility with a keystroke.
 This plugin does that.
 
+Because it's so useful to see the progress bar during a build,
+the status bar will be automatically shown whenever the progress bar is shown
+(and hidden afterwards).
+
 
 Installation
 ------------
