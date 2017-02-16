@@ -27,9 +27,7 @@ which might confuse you and prevent you from disabling it.
 If you're lost, start Geany with the ``--no-plugins`` option,
 or simply uninstall the plugin code.
 
-#. Install Geany 1.27.
-   The plugin relies on undocumented internals
-   and may not work with newer versions.
+#. Install Geany 1.27+.
 
 #. Make sure that "Show status bar"
    (Geany preferences → Interface → Miscellaneous)

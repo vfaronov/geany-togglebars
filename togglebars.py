@@ -2,17 +2,6 @@ import geany
 import gtk
 
 
-def resolve_widget(top, indices, expected_cls):
-    node = top
-    indices = list(indices)
-    while indices and isinstance(node, gtk.Container):
-        try:
-            node = node.get_children()[indices.pop(0)]
-        except IndexError:
-            return None
-    return node if isinstance(node, expected_cls) else None
-
-
 class ToggleBars(geany.Plugin):
 
     __plugin_name__ = 'Toggle Bars'
@@ -23,10 +12,16 @@ class ToggleBars(geany.Plugin):
 
     def __init__(self):
         super(ToggleBars, self).__init__()
-        self.menubar = resolve_widget(geany.main_widgets.window,
-                                      (0, 0, 0), gtk.MenuBar)
-        self.statusbar = resolve_widget(geany.main_widgets.window,
-                                        (0, -1, 0), gtk.Statusbar)
+
+        # The plugin API does not expose the menu and status bars directly.
+        # To avoid relying on a particular layout of the main window
+        # (which may change in future Geany releases), we recursively walk
+        # the main window's children to find the right kind of widget.
+        # See also http://lists.geany.org/pipermail/devel/2016-July/010038.html
+        self.menubar = find_widget(geany.main_widgets.window, is_main_menubar)
+        self.statusbar = find_widget(geany.main_widgets.window,
+                                     is_main_statusbar)
+
         self.currently_visible = None
         self.toggle(False)       # Hide initially
 
@@ -64,3 +59,25 @@ class ToggleBars(geany.Plugin):
         self.toggle(True)       # Show everything
         self.progressbar.disconnect(self.handler1)
         self.progressbar.disconnect(self.handler2)
+
+
+def find_widget(origin, predicate):
+    if predicate(origin):
+        return origin
+    elif isinstance(origin, gtk.Container):
+        for child in origin.get_children():
+            r = find_widget(child, predicate)
+            if r is not None:
+                return r
+    return None
+
+
+def is_main_menubar(widget):
+    return (isinstance(widget, gtk.MenuBar) and
+            any(menu_item.get_submenu() is geany.main_widgets.tools_menu
+                for menu_item in widget.get_children()))
+
+
+def is_main_statusbar(widget):
+    return (isinstance(widget, gtk.Statusbar) and
+            find_widget(widget, lambda w: w is geany.main_widgets.progressbar))
