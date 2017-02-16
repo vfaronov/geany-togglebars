@@ -22,11 +22,6 @@ the status bar will be automatically shown whenever the progress bar is shown
 Installation
 ------------
 
-**Caution.** When enabled, this plugin removes your Geany menu bar,
-which might confuse you and prevent you from disabling it.
-If you're lost, start Geany with the ``--no-plugins`` option,
-or simply uninstall the plugin code.
-
 #. Install Geany 1.27+.
 
 #. Make sure that "Show status bar"
