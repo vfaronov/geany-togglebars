@@ -7,7 +7,7 @@ import gtk
 class ToggleBars(geany.Plugin):
 
     __plugin_name__ = 'Toggle Bars'
-    __plugin_version__ = '0.4.0.dev1'
+    __plugin_version__ = '0.4.0'
     __plugin_description__ = \
         'Show/hide the Geany menu and status bars with a keystroke'
     __plugin_author__ = 'Vasiliy Faronov <vfaronov@gmail.com>'
